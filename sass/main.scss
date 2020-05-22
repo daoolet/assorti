@@ -1,11 +1,59 @@
+// Variables
 $a: red;
+$f: 40px+30px;
+// 
+
+
+// Templates
+%myBorder {
+    border: 1px dashed aqua;
+}
+
+.anotherKindOfTemplate {
+    letter-spacing: $f;
+}
+// 
+
+// Mixin 
+@mixin newFontSize($nfz) {
+    font-size: $nfz;
+}
+
+@mixin spacingAndColor($s,$c,$t){
+    letter-spacing: $s;
+    color: $c;
+    text-transform: $t;
+}
+// 
 
 .box {
     text-align: center;
     top: 50%;
     right: 50%;
     h1 {
-        color: $a;
-        text-transform: uppercase;
+        color: $a; //variable
+        @include newFontSize(100px); //mixin
+        @extend %myBorder; // template
+        @extend .anotherKindOfTemplate; // template
+        
     }
 }
+
+.cont {
+    @include spacingAndColor(10px, black, uppercase); // mixin w/ some variables
+    border-bottom: 4px solid black;
+}
+
+.block {
+    width: 300px/600px*100%;  // math
+    height: 100px;
+    background-color: gray;
+}
+
+// .tr {
+//     width: 0;
+//     height: 0;
+//     border-top: 100px solid red;
+//     border-left: 50px solid transparent;
+//     border-right: 50px solid transparent;
+// }

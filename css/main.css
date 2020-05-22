@@ -1,0 +1,9 @@
+.box {
+  text-align: center;
+  top: 50%;
+  right: 50%;
+}
+.box h1 {
+  color: red;
+  text-transform: uppercase;
+}

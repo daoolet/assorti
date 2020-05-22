@@ -1,0 +1,11 @@
+$a: red;
+
+.box {
+    text-align: center;
+    top: 50%;
+    right: 50%;
+    h1 {
+        color: $a;
+        text-transform: uppercase;
+    }
+}

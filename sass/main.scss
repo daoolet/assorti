@@ -14,10 +14,10 @@ $bgc:  rgb(85, 175, 20);
     background: url('/img/board.jpg') no-repeat;
 }
 
-#msgArea {
+#messageArea {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     color: $bgc;
 }
 
@@ -35,8 +35,8 @@ table {
 
 form {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    top: 0;
+    right: 0%;
     padding: 10px;
     background-color: $bgc;
 
@@ -50,6 +50,7 @@ form {
 .hit {
     background: url('/img/ship.png') no-repeat center center;
 }
+
 .miss {
     background: url('/img/miss.png') no-repeat center center;
 }

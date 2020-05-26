@@ -1,2 +1,1 @@
 # assorti
-sass+Bootstrap+jQuery

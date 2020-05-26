@@ -1,30 +1,50 @@
-.box h1 {
-  border: 1px dashed aqua;
+body {
+  background-color: black;
 }
 
-.anotherKindOfTemplate, .box h1 {
-  letter-spacing: 70px;
+#board {
+  position: relative;
+  width: 1024px;
+  height: 863px;
+  margin: auto;
+  background: url("/img/board.jpg") no-repeat;
 }
 
-.box {
-  text-align: center;
-  top: 50%;
-  right: 50%;
-}
-.box h1 {
-  color: red;
-  font-size: 100px;
+#msgArea {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  color: #55af14;
 }
 
-.cont {
-  letter-spacing: 10px;
-  color: black;
-  text-transform: uppercase;
-  border-bottom: 4px solid black;
+table {
+  position: absolute;
+  left: 173px;
+  top: 98px;
+  border-spacing: 0;
+}
+table td {
+  width: 94px;
+  height: 94px;
 }
 
-.block {
-  width: 50%;
-  height: 100px;
-  background-color: gray;
+form {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  background-color: #55af14;
+}
+form input {
+  background-color: #96c86e;
+  border-color: #55af14;
+  font-size: 1.1em;
+}
+
+.hit {
+  background: url("/img/ship.png") no-repeat center center;
+}
+
+.miss {
+  background: url("/img/miss.png") no-repeat center center;
 }

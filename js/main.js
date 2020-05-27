@@ -41,15 +41,18 @@ var model = {
 
     // Координаты выстрела
     fire: function(guess){
-        for (var i=0; i<this.numShips; i++) {
-
-            var index = this.ships[i].location.indexOf(guess)
+        for (var i=0; i<this.numShips; i++) 
+        {
+            var ship = this.ships[i];
+            var loc = ship.location;
+            var index = loc.indexOf(guess)
 
             if (index >= 0) {
                 // Есть попадание
                 ship.hits[index] = 'hit';
                 view.displayHit(guess);
                 view.displayMsg('HIT!!!');
+
                 if (this.isSunk(ship)) {
                     view.displayMsg('You sank a battleship');
                     this.shipSunk++;
@@ -71,7 +74,3 @@ var model = {
         return true;
     }
 };
-
-
-model.fire('40');
-model.fire('55');

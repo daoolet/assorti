@@ -40,37 +40,72 @@ var model = {
     ],
 
     // Координаты выстрела
-    fire: function(guess){
+    fire: function(guess)
+    {
         for (var i=0; i<this.numShips; i++) 
         {
             var ship = this.ships[i];
             var loc = ship.location;
-            var index = loc.indexOf(guess)
+            var index = loc.indexOf(guess);
 
-            if (index >= 0) {
+            if (index >= 0) 
+            {
                 // Есть попадание
                 ship.hits[index] = 'hit';
                 view.displayHit(guess);
                 view.displayMsg('HIT!!!');
 
-                if (this.isSunk(ship)) {
+                if (this.isSunk(ship)) 
+                {
                     view.displayMsg('You sank a battleship');
                     this.shipSunk++;
                 }
                 return true;
             }
         }
-        
+        // Есть промах
         view.displayMiss(guess);
         view.displayMsg('You missed!');
         return false;
     },
 
-    isSunk: function(ship){
+    // Проверка на утопленность
+    isSunk: function(ship)
+    {
         for (var i=0; i<this.shipLen; i++) {
             if (ship.hits[i] !== 'hit')
                 return false;
         }
         return true;
     }
+};
+
+var controller = {
+    shots: 0,
+    shotProcess: function(shots){
+
+    }
+};
+
+function parceShots(shots)
+{
+    var alphabet = ['A','B','C','D','E','F','G'];
+
+    if (shots === null || shots.length !== 2) {
+        alert('You entered incorrect data');
+    }
+    else {
+        firstChar = shots.charAt(0);       // Извлекаем первый символ
+        
+        var row = alphabet.indexOf(firstChar);
+        var coloumn = shots.charAt(1);
+
+        if (isNaN(row) || isNaN(coloumn))
+            alert('You entered incorrect data');
+        else if (row < 0 || row >= model.boardSize || coloumn < 0 || coloumn >= model.boardSize) 
+            alert('You entered incorrect data');
+        else 
+            return row + coloumn;
+    }   
+    return null;
 };

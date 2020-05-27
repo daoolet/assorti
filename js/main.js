@@ -1,16 +1,16 @@
 // 
 var view = {
-    displayMsg: function(msg){
+    displayMsg: function(msg) {
         var msgArea = document.querySelector('#messageArea');
         msgArea.innerHTML = msg;
     },
 
-    displayHit: function(location){
+    displayHit: function(location) {
         var cell = document.getElementById(location);
         cell.setAttribute('class', 'hit');
     },
 
-    displayMiss: function(location){
+    displayMiss: function(location) {
         var cell = document.getElementById(location);
         cell.setAttribute('class', 'miss');
     },
@@ -60,12 +60,15 @@ var model = {
                     view.displayMsg('You sank a battleship');
                     this.shipSunk++;
                 }
+
                 return true;
             }
         }
+
         // Есть промах
         view.displayMiss(guess);
         view.displayMsg('You missed!');
+        
         return false;
     },
 
@@ -76,18 +79,31 @@ var model = {
             if (ship.hits[i] !== 'hit')
                 return false;
         }
+
         return true;
     }
 };
 
+// Управление игрой
 var controller = {
     shots: 0,
-    shotProcess: function(shots){
 
+    shotProcess: function(shots) {
+        var coordinates = parseShots(shots);
+
+        if (location) {
+            this.shots++;
+            var hit = model.fire(coordinates);
+
+            if (hit && model.shipSunk === model.numShips) {
+                view.displayMsg('You Won!!! You have shot ' + this.shots 
+                + ' times to sunk all ships');
+            }
+        }
     }
 };
 
-function parceShots(shots)
+function parseShots(shots)
 {
     var alphabet = ['A','B','C','D','E','F','G'];
 
@@ -102,10 +118,41 @@ function parceShots(shots)
 
         if (isNaN(row) || isNaN(coloumn))
             alert('You entered incorrect data');
-        else if (row < 0 || row >= model.boardSize || coloumn < 0 || coloumn >= model.boardSize) 
+        else if (row < 0 || row >= model.boardSize ||
+                coloumn < 0 || coloumn >= model.boardSize) 
             alert('You entered incorrect data');
         else 
             return row + coloumn;
     }   
+
     return null;
-};
+}
+
+function init() {
+    var fireButton = document.getElementById('fireButton');
+    fireButton.onclick = handleFireButton;
+
+    // Enter click
+    var guessInput = document.getElementById('guessInput');
+    guessInput.onkeypress = handleKeyPress;
+
+}
+
+function handleFireButton() {
+    var guessInput = document.getElementById('guessInput');
+    var guess = guessInput.value;
+
+    controller.shotProcess(guess);
+    guessInput.value = '';
+}
+
+function handleKeyPress(e) {
+    var fireButton = document.getElementById('fireButton');
+
+    if (e.keyCode === 13) {
+        fireButton.click();
+        return false;
+    }
+}
+
+window.onload = init;

@@ -26,15 +26,15 @@ var model = {
     // Координты кораблей
     ships: [
         ship1 = {
-            location: ['10','20','30'],
+            location: ['0','0','0'],
             hits: ['','','']
         },
         ship2 = {
-            location: ['32','33','34'],
+            location: ['0','0','0'],
             hits: ['','','']
         },
         ship3 = {
-            location: ['41','42','43'],
+            location: ['0','0','0'],
             hits: ['','','']
         }
     ],
@@ -81,6 +81,59 @@ var model = {
         }
 
         return true;
+    },
+
+    // Генерация кораблей
+    generateShipsLocation: function() {
+        var location;
+
+        for (var i = 0; i < this.numShips; i++)
+        {
+            do {
+                location = this.generateShip();
+            } while (this.collision(location));
+
+            this.ships[i].location = location;
+        }
+    },
+
+    generateShip: function() {
+        var dir = Math.floor(Math.random()*2);
+        var row, col;
+
+        if (dir === 1) {
+            row = Math.floor(Math.random() * this.boardSize);
+            col = Math.floor(Math.random() * (this.boardSize - this.shipLen));
+        } else {
+            col = Math.floor(Math.random() * this.boardSize);
+            row = Math.floor(Math.random() * (this.boardSize - this.shipLen));
+        }
+
+        var newShipLocation = [];
+
+        for (var i = 0; i < this.shipLen; i++)
+        {
+            if (dir === 1) 
+                newShipLocation.push(row + '' + (col + i));
+            else
+                newShipLocation.push((row + i) + '' + col);
+        }
+
+        return newShipLocation;
+    },
+
+    collision: function(location) {
+
+        for (var i = 0; i < this.shipLen; i++)
+        {
+            var  ship = model.ships[i];
+
+            for (var j = 0; j < location.length; j++) 
+                if (ship.location.indexOf(location[j]) >= 0)
+                    return true;
+        }
+
+        return false;
     }
 };
 
@@ -136,6 +189,7 @@ function init() {
     var guessInput = document.getElementById('guessInput');
     guessInput.onkeypress = handleKeyPress;
 
+    model.generateShipsLocation();
 }
 
 function handleFireButton() {
